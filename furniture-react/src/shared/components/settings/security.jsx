@@ -62,7 +62,7 @@ const [imagePreview, setImagePreview] = useState(user.image_url || "");
         form.append("image", formData.image);
       }
      const res = await fetch(
-        "http://localhost:5000/api/auth/profile",
+        `${process.env.API_URL || 'http://localhost:5000/api'}/auth/profile`,
         {
           method: "PUT",
           body:form

@@ -10,7 +10,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const API_URL = 'http://localhost:5000/api/auth';
+  const API_URL = (process.env.API_URL || 'http://localhost:5000/api') + '/auth';
 
   // Fetch current user on mount
   useEffect(() => {

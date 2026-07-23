@@ -1,0 +1,14 @@
+{
+  "watch": [
+    "backend",
+    "ssr",
+    "furniture-react/src/shared"
+  ],
+  "ext": "js,jsx,json",
+  "ignore": [
+    "dist",
+    "node_modules",
+    "furniture-react/public"
+  ],
+  "exec": "node backend/server.js"
+}

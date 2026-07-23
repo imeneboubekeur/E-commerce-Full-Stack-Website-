@@ -1,0 +1,65 @@
+[
+    {
+         "id": 1,
+    "name": "Axis Bed",
+    "price": 300,
+    "image": "/src/assets/modernBed2.png",
+    "description": "A comfortable velvet chair with wooden legs and soft cushions.",
+    "category":"Beds",
+    "color":""
+    },
+     {
+         "id": 2,
+    "name": "Emerald Bloom",
+    "price": 50,
+    "image": "/src/assets/deco.png",
+    "description": "A comfortable velvet chair with wooden legs and soft cushions.",
+    "category":"Decor",
+    "color":""
+    },
+     {
+         "id": 3,
+    "name": "Royal Comfort Chair",
+    "price": 200,
+    "image": "/src/assets/fauteuil.png",
+    "description": "A comfortable velvet chair with wooden legs and soft cushions.",
+    "category":"Chairs",
+    "color":""
+    },
+     {
+         "id": 4,
+    "name": "Orbit Bed",
+    "price": 600,
+    "image": "/src/assets/modernBed.png",
+    "description": "A comfortable velvet chair with wooden legs and soft cushions.",
+    "category":"Beds",
+    "color":""
+    },
+     {
+         "id": 5,
+    "name": "Flow Pillow",
+    "price": 30,
+    "image": "/src/assets/pillow.png",
+    "description": "A comfortable velvet chair with wooden legs and soft cushions.",
+    "category":"Decor",
+    "color":""
+    },
+     {
+         "id": 6,
+    "name": "Aurora Wardrobe",
+    "price": 300,
+    "image": "/src/assets/armoir.png",
+    "description": "A comfortable velvet chair with wooden legs and soft cushions.",
+    "category":"Wardrobe",
+    "color":""
+    },
+     {
+         "id": 7,
+    "name": "Linea Bed",
+    "price": 500,
+    "image": "/src/assets/modernBed1.png",
+    "description": "A comfortable velvet chair with wooden legs and soft cushions.",
+    "category":"Beds",
+    "color":""
+    }
+]

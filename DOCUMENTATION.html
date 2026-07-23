@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Furniture E-Commerce - Full System Documentation</title>
+<style>
+  @page {
+    size: A4;
+    margin: 15mm;
+  }
+  
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    color: #1e293b;
+    line-height: 1.5;
+    font-size: 11pt;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Cover Page */
+  .cover-page {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    page-break-after: always;
+    padding: 40px 25px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+  }
+
+  .cover-header {
+    border-left: 6px solid #2563eb;
+    padding-left: 20px;
+  }
+
+  .cover-title {
+    font-size: 32pt;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 10px 0;
+    letter-spacing: -0.5px;
+  }
+
+  .cover-subtitle {
+    font-size: 15pt;
+    color: #475569;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  .cover-badge-group {
+    margin-top: 25px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    background-color: #2563eb;
+    color: #ffffff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 9pt;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-dark {
+    background-color: #0f172a;
+  }
+
+  .badge-accent {
+    background-color: #0d9488;
+  }
+
+  .cover-body {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+  }
+
+  .cover-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: #64748b;
+    border-top: 1px solid #cbd5e1;
+    padding-top: 15px;
+  }
+
+  /* Section Styling */
+  .page-break {
+    page-break-before: always;
+  }
+
+  h1 {
+    font-size: 20pt;
+    color: #0f172a;
+    border-bottom: 2px solid #2563eb;
+    padding-bottom: 8px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+  }
+
+  h2 {
+    font-size: 14pt;
+    color: #1e293b;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    font-size: 12pt;
+    color: #334155;
+    margin-top: 15px;
+    margin-bottom: 8px;
+  }
+
+  p, li {
+    font-size: 10pt;
+    color: #334155;
+  }
+
+  /* Diagrams Container */
+  .diagram-container {
+    width: 100%;
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .diagram-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #475569;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    font-size: 9.5pt;
+  }
+
+  th, td {
+    border: 1px solid #cbd5e1;
+    padding: 8px 10px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #0f172a;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 9pt;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f8fafc;
+  }
+
+  .pk {
+    color: #d97706;
+    font-weight: 700;
+  }
+
+  .fk {
+    color: #2563eb;
+    font-weight: 700;
+  }
+
+  .type {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 8.5pt;
+    color: #0d9488;
+  }
+
+  .code-inline {
+    font-family: 'Consolas', 'Courier New', monospace;
+    background: #f1f5f9;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 8.5pt;
+    color: #0f172a;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- COVER PAGE -->
+  <div class="cover-page">
+    <div class="cover-header">
+      <div class="cover-title">Furniture E-Commerce</div>
+      <div class="cover-subtitle">Technical Documentation, Database Schema & System Architecture</div>
+      <div class="cover-badge-group">
+        <span class="badge">React 19 & SSR</span>
+        <span class="badge badge-dark">Node.js / Express</span>
+        <span class="badge badge-accent">PostgreSQL DB</span>
+        <span class="badge">Stripe Payments</span>
+        <span class="badge badge-dark">Cloudinary Storage</span>
+      </div>
+    </div>
+
+    <div class="cover-body">
+      <h3>Executive Summary</h3>
+      <p>This document provides a comprehensive technical overview of the Furniture E-Commerce application. It covers full end-to-end system architecture, workflow flowcharts for customers, administrators, and payment webhooks, database entity-relationship (ER) diagrams, detailed PostgreSQL schema definitions, and complete REST API specifications.</p>
+      
+      <h3>Key System Specifications</h3>
+      <ul>
+        <li><strong>Frontend Architecture:</strong> React 19, Redux Toolkit, React Router 7, Webpack Server-Side Rendering (SSR)</li>
+        <li><strong>Backend REST API:</strong> Express.js with JSON Web Tokens (JWT) & bcrypt authorization</li>
+        <li><strong>Database Engine:</strong> PostgreSQL with foreign key relational integrity & JSONB dynamic configurations</li>
+        <li><strong>Third-Party Integrations:</strong> Stripe Checkout & Webhooks, Cloudinary Media Assets Management</li>
+      </ul>
+    </div>
+
+    <div class="cover-footer">
+      <span>System Architecture Documentation</span>
+      <span>Version 1.0.0 | Production Release PDF</span>
+    </div>
+  </div>
+
+  <!-- SECTION 1: SYSTEM ARCHITECTURE -->
+  <div>
+    <h1>1. System Architecture</h1>
+    <p>The application is designed as a modern high-performance e-commerce platform using React with custom Webpack Server-Side Rendering (SSR) on the frontend and an Express.js REST API layer interacting with a PostgreSQL database.</p>
+
+    <div class="diagram-container">
+      <div class="diagram-title">Figure 1.1: End-to-End System Architecture Overview</div>
+      <svg viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+          </marker>
+        </defs>
+
+        <!-- Client Layer -->
+        <rect x="20" y="30" width="180" height="320" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+        <text x="110" y="55" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-size="14">Client Browser</text>
+        <rect x="35" y="80" width="150" height="50" rx="5" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+        <text x="110" y="102" font-size="11" font-weight="bold" fill="#1e40af" text-anchor="middle">React 19 Frontend</text>
+        <text x="110" y="118" font-size="9" fill="#475569" text-anchor="middle">(Redux Toolkit, Hooks)</text>
+
+        <rect x="35" y="150" width="150" height="50" rx="5" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+        <text x="110" y="172" font-size="11" font-weight="bold" fill="#1e40af" text-anchor="middle">UI Components</text>
+        <text x="110" y="188" font-size="9" fill="#475569" text-anchor="middle">(Cart, Wishlist, Admin)</text>
+
+        <rect x="35" y="220" width="150" height="50" rx="5" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+        <text x="110" y="242" font-size="11" font-weight="bold" fill="#1e40af" text-anchor="middle">Stripe SDK / Element</text>
+        <text x="110" y="258" font-size="9" fill="#475569" text-anchor="middle">(Secure Card Tokenization)</text>
+
+        <rect x="35" y="290" width="150" height="40" rx="5" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+        <text x="110" y="314" font-size="10" font-weight="bold" fill="#0369a1" text-anchor="middle">Local Storage & JWT</text>
+
+        <!-- Server Layer -->
+        <rect x="260" y="30" width="260" height="320" rx="8" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+        <text x="390" y="55" font-weight="bold" fill="#0f172a" text-anchor="middle" font-size="14">Express Node.js Server</text>
+
+        <rect x="280" y="75" width="220" height="45" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+        <text x="390" y="95" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">SSR Engine</text>
+        <text x="390" y="110" font-size="9" fill="#64748b" text-anchor="middle">Webpack Server Bundle</text>
+
+        <rect x="280" y="135" width="220" height="50" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+        <text x="390" y="155" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">REST Controllers & Routes</text>
+        <text x="390" y="172" font-size="9" fill="#64748b" text-anchor="middle">Auth, Products, Cart, Orders, Admin</text>
+
+        <rect x="280" y="200" width="220" height="45" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+        <text x="390" y="220" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">Middleware Layer</text>
+        <text x="390" y="235" font-size="9" fill="#64748b" text-anchor="middle">JWT Verify, Rate Limiter, Multer</text>
+
+        <rect x="280" y="260" width="220" height="45" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+        <text x="390" y="280" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">Stripe Webhook Handler</text>
+        <text x="390" y="295" font-size="9" fill="#64748b" text-anchor="middle">Raw Body Signature Verification</text>
+
+        <!-- External & Database Layer -->
+        <rect x="580" y="30" width="200" height="100" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+        <text x="680" y="55" font-weight="bold" fill="#14532d" text-anchor="middle" font-size="13">PostgreSQL DB</text>
+        <text x="680" y="75" font-size="9" fill="#15803d" text-anchor="middle">`pg` Pool Connections</text>
+        <text x="680" y="92" font-size="9" fill="#15803d" text-anchor="middle">9 Relational Tables + JSONB</text>
+
+        <rect x="580" y="150" width="200" height="90" rx="8" fill="#fefce8" stroke="#ca8a04" stroke-width="2"/>
+        <text x="680" y="175" font-weight="bold" fill="#713f12" text-anchor="middle" font-size="13">Stripe API</text>
+        <text x="680" y="195" font-size="9" fill="#a16207" text-anchor="middle">Payment Intents & Sessions</text>
+
+        <rect x="580" y="260" width="200" height="90" rx="8" fill="#faf5ff" stroke="#9333ea" stroke-width="2"/>
+        <text x="680" y="285" font-weight="bold" fill="#581c87" text-anchor="middle" font-size="13">Cloudinary Cloud</text>
+        <text x="680" y="305" font-size="9" fill="#7e22ce" text-anchor="middle">Image Hosting & CDN</text>
+
+        <!-- Connectors -->
+        <line x1="200" y1="105" x2="260" y2="105" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+        <line x1="200" y1="160" x2="260" y2="160" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+        <line x1="500" y1="80" x2="580" y2="80" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow)"/>
+        <line x1="500" y1="180" x2="580" y2="180" stroke="#ca8a04" stroke-width="2" marker-end="url(#arrow)"/>
+        <line x1="500" y1="280" x2="580" y2="280" stroke="#9333ea" stroke-width="2" marker-end="url(#arrow)"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- SECTION 2: SYSTEM FLOWCHARTS -->
+  <div class="page-break">
+    <h1>2. System Flowcharts</h1>
+
+    <h2>2.1 Customer Shopping & Checkout Flowchart</h2>
+    <div class="diagram-container">
+      <div class="diagram-title">Figure 2.1: Customer Journey & Checkout Flow</div>
+      <svg viewBox="0 0 760 480" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow2" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+          </marker>
+        </defs>
+
+        <!-- Start Node -->
+        <ellipse cx="380" cy="30" rx="60" ry="20" fill="#0f172a" stroke="#0f172a"/>
+        <text x="380" y="34" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">Customer Enters</text>
+
+        <!-- Browse / Auth -->
+        <rect x="290" y="80" width="180" height="40" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="380" y="104" font-size="10" font-weight="bold" fill="#1e40af" text-anchor="middle">Browse Furniture Catalog</text>
+
+        <!-- Decision: Logged In? -->
+        <polygon points="380,150 470,185 380,220 290,185" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+        <text x="380" y="189" font-size="9" font-weight="bold" fill="#92400e" text-anchor="middle">Authenticated?</text>
+
+        <!-- Signup / Login -->
+        <rect x="90" y="165" width="150" height="40" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+        <text x="165" y="189" font-size="9" font-weight="bold" fill="#334155" text-anchor="middle">Sign Up / JWT Login</text>
+
+        <!-- Cart Actions -->
+        <rect x="530" y="165" width="170" height="40" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+        <text x="615" y="189" font-size="9" font-weight="bold" fill="#166534" text-anchor="middle">Add to Cart / Wishlist</text>
+
+        <!-- Checkout Process -->
+        <rect x="290" y="250" width="180" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+        <text x="380" y="274" font-size="10" font-weight="bold" fill="#1e40af" text-anchor="middle">Proceed to Checkout</text>
+
+        <!-- Stripe Integration -->
+        <rect x="290" y="320" width="180" height="40" rx="6" fill="#faf5ff" stroke="#9333ea" stroke-width="1.5"/>
+        <text x="380" y="344" font-size="10" font-weight="bold" fill="#6b21a8" text-anchor="middle">Stripe Payment Gateway</text>
+
+        <!-- Order Created -->
+        <rect x="290" y="390" width="180" height="40" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+        <text x="380" y="414" font-size="10" font-weight="bold" fill="#14532d" text-anchor="middle">Order Placed & Cleared Cart</text>
+
+        <!-- End Node -->
+        <ellipse cx="380" cy="460" rx="60" ry="15" fill="#16a34a"/>
+        <text x="380" y="464" fill="#ffffff" font-size="9" font-weight="bold" text-anchor="middle">Complete</text>
+
+        <!-- Arrows & Labels -->
+        <line x1="380" y1="50" x2="380" y2="80" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow2)"/>
+        <line x1="380" y1="120" x2="380" y2="150" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow2)"/>
+        
+        <line x1="290" y1="185" x2="240" y2="185" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow2)"/>
+        <text x="265" y="177" font-size="8" font-weight="bold" fill="#dc2626">No</text>
+        
+        <line x1="165" y1="165" x2="165" y2="100" stroke="#475569" stroke-width="1.5"/>
+        <line x1="165" y1="100" x2="290" y2="100" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow2)"/>
+
+        <line x1="470" y1="185" x2="530" y2="185" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow2)"/>
+        <text x="495" y="177" font-size="8" font-weight="bold" fill="#16a34a">Yes</text>
+
+        <line x1="615" y1="205" x2="615" y2="270" stroke="#475569" stroke-width="1.5"/>
+        <line x1="615" y1="270" x2="470" y2="270" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow2)"/>
+
+        <line x1="380" y1="290" x2="380" y2="320" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow2)"/>
+        <line x1="380" y1="360" x2="380" y2="390" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow2)"/>
+        <line x1="380" y1="430" x2="380" y2="445" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow2)"/>
+      </svg>
+    </div>
+
+    <h2>2.2 Admin Catalog & Store Management Flowchart</h2>
+    <div class="diagram-container">
+      <div class="diagram-title">Figure 2.2: Admin Workflow</div>
+      <svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg">
+        <!-- Admin Start -->
+        <rect x="20" y="90" width="130" height="40" rx="6" fill="#0f172a" stroke="#0f172a"/>
+        <text x="85" y="114" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">Admin Login</text>
+
+        <!-- Route Verify -->
+        <rect x="180" y="90" width="130" height="40" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+        <text x="245" y="114" font-size="9" font-weight="bold" fill="#92400e" text-anchor="middle">Verify Role & JWT</text>
+
+        <!-- Actions -->
+        <rect x="350" y="20" width="170" height="35" rx="5" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+        <text x="435" y="42" font-size="9" font-weight="bold" fill="#1e40af" text-anchor="middle">Manage Products (CRUD)</text>
+
+        <rect x="350" y="70" width="170" height="35" rx="5" fill="#faf5ff" stroke="#9333ea" stroke-width="1.5"/>
+        <text x="435" y="92" font-size="9" font-weight="bold" fill="#6b21a8" text-anchor="middle">Upload Cloudinary Images</text>
+
+        <rect x="350" y="120" width="170" height="35" rx="5" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+        <text x="435" y="142" font-size="9" font-weight="bold" fill="#166534" text-anchor="middle">Update Order Status</text>
+
+        <rect x="350" y="170" width="170" height="35" rx="5" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/>
+        <text x="435" y="192" font-size="9" font-weight="bold" fill="#c2410c" text-anchor="middle">Configure JSONB Settings</text>
+
+        <!-- DB Sync -->
+        <rect x="570" y="90" width="160" height="40" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+        <text x="650" y="114" font-size="10" font-weight="bold" fill="#14532d" text-anchor="middle">PostgreSQL Database</text>
+
+        <!-- Lines -->
+        <line x1="150" y1="110" x2="180" y2="110" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow2)"/>
+        <line x1="310" y1="110" x2="330" y2="110" stroke="#475569" stroke-width="1.5"/>
+        
+        <path d="M 330 110 L 330 37 L 350 37" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow2)"/>
+        <path d="M 330 110 L 330 87 L 350 87" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow2)"/>
+        <path d="M 330 110 L 330 137 L 350 137" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow2)"/>
+        <path d="M 330 110 L 330 187 L 350 187" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow2)"/>
+
+        <path d="M 520 37 L 550 37 L 550 110 L 570 110" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow2)"/>
+        <path d="M 520 87 L 570 110" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow2)"/>
+        <path d="M 520 137 L 570 110" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow2)"/>
+        <path d="M 520 187 L 550 187 L 550 110 L 570 110" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow2)"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- SECTION 3: ENTITY-RELATIONSHIP (ER) DIAGRAM -->
+  <div class="page-break">
+    <h1>3. Entity-Relationship (ER) Diagram</h1>
+    <p>Below is the complete database ER diagram illustrating the 9 PostgreSQL tables, their primary keys, foreign key constraints, and relational cardinalities ($1:1, 1:M, M:N$).</p>
+
+    <div class="diagram-container">
+      <div class="diagram-title">Figure 3.1: PostgreSQL Relational ER Diagram</div>
+      <svg viewBox="0 0 780 520" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .er-title { font-size: 11px; font-weight: bold; fill: #ffffff; }
+          .er-field { font-size: 9px; fill: #1e293b; }
+          .er-pk { font-size: 9px; font-weight: bold; fill: #d97706; }
+          .er-fk { font-size: 9px; font-weight: bold; fill: #2563eb; }
+          .cardinality { font-size: 9px; font-weight: bold; fill: #0f172a; }
+        </style>
+
+        <!-- USERS -->
+        <g transform="translate(40, 40)">
+          <rect x="0" y="0" width="160" height="150" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+          <rect x="0" y="0" width="160" height="26" rx="5" fill="#2563eb"/>
+          <text x="80" y="17" class="er-title" text-anchor="middle">USERS</text>
+          <text x="10" y="42" class="er-pk">id (PK)</text>
+          <text x="10" y="58" class="er-field">email (UNIQUE)</text>
+          <text x="10" y="74" class="er-field">password</text>
+          <text x="10" y="90" class="er-field">name, phone</text>
+          <text x="10" y="106" class="er-field">address, image_url</text>
+          <text x="10" y="122" class="er-field">reset_token</text>
+          <text x="10" y="138" class="er-field">created_at</text>
+        </g>
+
+        <!-- CATEGORIES -->
+        <g transform="translate(560, 40)">
+          <rect x="0" y="0" width="160" height="90" rx="6" fill="#ffffff" stroke="#0d9488" stroke-width="2"/>
+          <rect x="0" y="0" width="160" height="26" rx="5" fill="#0d9488"/>
+          <text x="80" y="17" class="er-title" text-anchor="middle">CATEGORIES</text>
+          <text x="10" y="42" class="er-pk">id (PK)</text>
+          <text x="10" y="58" class="er-field">name</text>
+          <text x="10" y="74" class="er-field">image_url, image_public_id</text>
+        </g>
+
+        <!-- PRODUCTS -->
+        <g transform="translate(560, 180)">
+          <rect x="0" y="0" width="160" height="150" rx="6" fill="#ffffff" stroke="#0d9488" stroke-width="2"/>
+          <rect x="0" y="0" width="160" height="26" rx="5" fill="#0d9488"/>
+          <text x="80" y="17" class="er-title" text-anchor="middle">PRODUCTS</text>
+          <text x="10" y="42" class="er-pk">id (PK)</text>
+          <text x="10" y="58" class="er-fk">category_id (FK)</text>
+          <text x="10" y="74" class="er-field">name, price</text>
+          <text x="10" y="90" class="er-field">description, stock</text>
+          <text x="10" y="106" class="er-field">sku (UNIQUE)</text>
+          <text x="10" y="122" class="er-field">image_url</text>
+          <text x="10" y="138" class="er-field">created_at</text>
+        </g>
+
+        <!-- CART -->
+        <g transform="translate(300, 40)">
+          <rect x="0" y="0" width="160" height="100" rx="6" fill="#ffffff" stroke="#9333ea" stroke-width="2"/>
+          <rect x="0" y="0" width="160" height="26" rx="5" fill="#9333ea"/>
+          <text x="80" y="17" class="er-title" text-anchor="middle">CART (Join)</text>
+          <text x="10" y="42" class="er-pk">id (PK)</text>
+          <text x="10" y="58" class="er-fk">user_id (FK)</text>
+          <text x="10" y="74" class="er-fk">product_id (FK)</text>
+          <text x="10" y="90" class="er-field">quantity</text>
+        </g>
+
+        <!-- WISHLIST -->
+        <g transform="translate(300, 160)">
+          <rect x="0" y="0" width="160" height="80" rx="6" fill="#ffffff" stroke="#9333ea" stroke-width="2"/>
+          <rect x="0" y="0" width="160" height="26" rx="5" fill="#9333ea"/>
+          <text x="80" y="17" class="er-title" text-anchor="middle">WISHLIST (Join)</text>
+          <text x="10" y="42" class="er-pk">id (PK)</text>
+          <text x="10" y="58" class="er-fk">user_id (FK)</text>
+          <text x="10" y="74" class="er-fk">product_id (FK)</text>
+        </g>
+
+        <!-- ORDERS -->
+        <g transform="translate(40, 260)">
+          <rect x="0" y="0" width="160" height="110" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+          <rect x="0" y="0" width="160" height="26" rx="5" fill="#16a34a"/>
+          <text x="80" y="17" class="er-title" text-anchor="middle">ORDERS</text>
+          <text x="10" y="42" class="er-pk">id (PK)</text>
+          <text x="10" y="58" class="er-fk">user_id (FK)</text>
+          <text x="10" y="74" class="er-field">total_price, status</text>
+          <text x="10" y="90" class="er-field">shipping_address</text>
+          <text x="10" y="106" class="er-field">created_at</text>
+        </g>
+
+        <!-- ORDER ITEMS -->
+        <g transform="translate(300, 260)">
+          <rect x="0" y="0" width="160" height="110" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+          <rect x="0" y="0" width="160" height="26" rx="5" fill="#16a34a"/>
+          <text x="80" y="17" class="er-title" text-anchor="middle">ORDER_ITEMS</text>
+          <text x="10" y="42" class="er-pk">id (PK)</text>
+          <text x="10" y="58" class="er-fk">order_id (FK)</text>
+          <text x="10" y="74" class="er-fk">product_id (FK)</text>
+          <text x="10" y="90" class="er-field">quantity, price</text>
+        </g>
+
+        <!-- REVIEWS -->
+        <g transform="translate(300, 390)">
+          <rect x="0" y="0" width="160" height="100" rx="6" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+          <rect x="0" y="0" width="160" height="26" rx="5" fill="#ea580c"/>
+          <text x="80" y="17" class="er-title" text-anchor="middle">REVIEWS</text>
+          <text x="10" y="42" class="er-pk">id (PK)</text>
+          <text x="10" y="58" class="er-fk">product_id (FK)</text>
+          <text x="10" y="74" class="er-fk">user_id (FK)</text>
+          <text x="10" y="90" class="er-field">rating, comment</text>
+        </g>
+
+        <!-- SETTINGS -->
+        <g transform="translate(560, 390)">
+          <rect x="0" y="0" width="160" height="100" rx="6" fill="#ffffff" stroke="#475569" stroke-width="2"/>
+          <rect x="0" y="0" width="160" height="26" rx="5" fill="#475569"/>
+          <text x="80" y="17" class="er-title" text-anchor="middle">SETTINGS</text>
+          <text x="10" y="42" class="er-pk">id (PK)</text>
+          <text x="10" y="58" class="er-field">category</text>
+          <text x="10" y="74" class="er-field">key (UNIQUE)</text>
+          <text x="10" y="90" class="er-field">value (JSONB)</text>
+        </g>
+
+        <!-- RELATIONAL LINES -->
+        <!-- Users to Cart -->
+        <path d="M 200 80 L 300 80" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4"/>
+        <text x="210" y="75" class="cardinality">1</text>
+        <text x="285" y="75" class="cardinality">N</text>
+
+        <!-- Products to Cart -->
+        <path d="M 560 210 L 460 100" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4"/>
+        <text x="545" y="210" class="cardinality">1</text>
+
+        <!-- Users to Orders -->
+        <path d="M 120 190 L 120 260" stroke="#64748b" stroke-width="1.5"/>
+        <text x="128" y="205" class="cardinality">1</text>
+        <text x="128" y="250" class="cardinality">N</text>
+
+        <!-- Orders to Order Items -->
+        <path d="M 200 310 L 300 310" stroke="#64748b" stroke-width="1.5"/>
+        <text x="210" y="305" class="cardinality">1</text>
+        <text x="285" y="305" class="cardinality">N</text>
+
+        <!-- Products to Order Items -->
+        <path d="M 560 270 L 460 290" stroke="#64748b" stroke-width="1.5"/>
+        <text x="545" y="270" class="cardinality">1</text>
+        <text x="475" y="285" class="cardinality">N</text>
+
+        <!-- Categories to Products -->
+        <path d="M 640 130 L 640 180" stroke="#64748b" stroke-width="1.5"/>
+        <text x="648" y="145" class="cardinality">1</text>
+        <text x="648" y="175" class="cardinality">N</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- SECTION 4: DATABASE SCHEMA TABLES -->
+  <div class="page-break">
+    <h1>4. Detailed Database Schema Specification</h1>
+    <p>Below is the detailed PostgreSQL database table specification for all 9 tables initialized via <span class="code-inline">backend/database/initDB.js</span>.</p>
+
+    <h2>4.1 Table: <span class="code-inline">users</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Column</th>
+          <th>Data Type</th>
+          <th>Constraints & Defaults</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="pk">id</td><td class="type">SERIAL</td><td>PRIMARY KEY</td><td>Unique user identification key</td></tr>
+        <tr><td>email</td><td class="type">VARCHAR(255)</td><td>NOT NULL, UNIQUE</td><td>User login email address</td></tr>
+        <tr><td>password</td><td class="type">VARCHAR(255)</td><td>NOT NULL</td><td>Bcrypt hashed password</td></tr>
+        <tr><td>name</td><td class="type">VARCHAR(255)</td><td>NOT NULL</td><td>Full user name</td></tr>
+        <tr><td>phone</td><td class="type">VARCHAR(20)</td><td>NULL</td><td>Contact phone number</td></tr>
+        <tr><td>address</td><td class="type">TEXT</td><td>NULL</td><td>Default delivery address</td></tr>
+        <tr><td>image_url</td><td class="type">TEXT</td><td>NULL</td><td>Cloudinary avatar URL</td></tr>
+        <tr><td>image_public_id</td><td class="type">VARCHAR(255)</td><td>NULL</td><td>Cloudinary asset reference ID</td></tr>
+        <tr><td>reset_token</td><td class="type">TEXT</td><td>NULL</td><td>Password reset verification token</td></tr>
+        <tr><td>reset_token_expiry</td><td class="type">TIMESTAMP</td><td>NULL</td><td>Reset token expiration time</td></tr>
+        <tr><td>created_at</td><td class="type">TIMESTAMP</td><td>DEFAULT CURRENT_TIMESTAMP</td><td>Record creation timestamp</td></tr>
+      </tbody>
+    </table>
+
+    <h2>4.2 Table: <span class="code-inline">categories</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Column</th>
+          <th>Data Type</th>
+          <th>Constraints & Defaults</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="pk">id</td><td class="type">SERIAL</td><td>PRIMARY KEY</td><td>Unique category identifier</td></tr>
+        <tr><td>name</td><td class="type">VARCHAR(100)</td><td>NOT NULL</td><td>Category name (e.g. Living Room)</td></tr>
+        <tr><td>image_url</td><td class="type">TEXT</td><td>NULL</td><td>Category showcase image URL</td></tr>
+        <tr><td>image_public_id</td><td class="type">VARCHAR(255)</td><td>NULL</td><td>Cloudinary asset ID</td></tr>
+      </tbody>
+    </table>
+
+    <h2>4.3 Table: <span class="code-inline">products</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Column</th>
+          <th>Data Type</th>
+          <th>Constraints & Defaults</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="pk">id</td><td class="type">SERIAL</td><td>PRIMARY KEY</td><td>Unique furniture product ID</td></tr>
+        <tr><td>name</td><td class="type">VARCHAR(255)</td><td>NOT NULL</td><td>Item product title</td></tr>
+        <tr><td>description</td><td class="type">TEXT</td><td>NULL</td><td>Detailed furniture description</td></tr>
+        <tr><td>price</td><td class="type">DECIMAL(10,2)</td><td>NOT NULL</td><td>Item price in USD</td></tr>
+        <tr><td class="fk">category_id</td><td class="type">INT</td><td>REFERENCES categories(id)</td><td>Foreign key to parent category</td></tr>
+        <tr><td>stock</td><td class="type">INTEGER</td><td>DEFAULT 0</td><td>Available stock inventory count</td></tr>
+        <tr><td>sku</td><td class="type">VARCHAR(100)</td><td>UNIQUE</td><td>Stock Keeping Unit barcode</td></tr>
+        <tr><td>image_url</td><td class="type">TEXT</td><td>NULL</td><td>Primary product image</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 4 CONTINUED & SECTION 5: API ROUTES -->
+  <div class="page-break">
+    <h2>4.4 Orders & Junction Tables (<span class="code-inline">orders</span>, <span class="code-inline">order_items</span>, <span class="code-inline">cart</span>, <span class="code-inline">wishlist</span>)</h2>
+    
+    <div class="grid-2">
+      <div>
+        <h3><span class="code-inline">orders</span></h3>
+        <table>
+          <thead><tr><th>Column</th><th>Type</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="pk">id</td><td class="type">SERIAL</td><td>PRIMARY KEY</td></tr>
+            <tr><td class="fk">user_id</td><td class="type">INT</td><td>FK -> users(id) ON DELETE CASCADE</td></tr>
+            <tr><td>total_price</td><td class="type">DECIMAL(10,2)</td><td>Final total cost</td></tr>
+            <tr><td>status</td><td class="type">VARCHAR(50)</td><td>DEFAULT 'pending' (paid/fulfilled)</td></tr>
+            <tr><td>shipping_address</td><td class="type">TEXT</td><td>Destination shipping text</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <h3><span class="code-inline">order_items</span></h3>
+        <table>
+          <thead><tr><th>Column</th><th>Type</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="pk">id</td><td class="type">SERIAL</td><td>PRIMARY KEY</td></tr>
+            <tr><td class="fk">order_id</td><td class="type">INT</td><td>FK -> orders(id) ON DELETE CASCADE</td></tr>
+            <tr><td class="fk">product_id</td><td class="type">INT</td><td>FK -> products(id)</td></tr>
+            <tr><td>quantity</td><td class="type">INT</td><td>Purchased count</td></tr>
+            <tr><td>price</td><td class="type">DECIMAL(10,2)</td><td>Historical unit price</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2>4.5 System Settings Table (<span class="code-inline">settings</span>)</h2>
+    <p>Stores dynamic store metadata, payment flags, shipping calculation rules, and Cloudinary preset configuration in JSONB format.</p>
+    <table>
+      <thead>
+        <tr><th>Key</th><th>Category</th><th>JSONB Structure Summary</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="code-inline">store_info</span></td><td>store</td><td><span class="code-inline">{ "name": "...", "email": "...", "phone": "...", "currency": "USD" }</span></td></tr>
+        <tr><td><span class="code-inline">stripe</span></td><td>payment</td><td><span class="code-inline">{ "enabled": true, "testMode": true }</span></td></tr>
+        <tr><td><span class="code-inline">shipping_rules</span></td><td>shipping</td><td><span class="code-inline">{ "flatRate": 10, "freeShippingOver": 100 }</span></td></tr>
+        <tr><td><span class="code-inline">cloudinary</span></td><td>media</td><td><span class="code-inline">{ "cloudName": "...", "maxSizeMB": 5, "formats": ["jpg", "png"] }</span></td></tr>
+      </tbody>
+    </table>
+
+    <h1>5. REST API Specification Summary</h1>
+    <table>
+      <thead>
+        <tr><th>Endpoint</th><th>HTTP Method</th><th>Auth Required</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="code-inline">/api/auth/signup</span></td><td>POST</td><td>Public (Rate limited)</td><td>Registers new user account</td></tr>
+        <tr><td><span class="code-inline">/api/auth/login</span></td><td>POST</td><td>Public (Rate limited)</td><td>Authenticates & returns JWT token</td></tr>
+        <tr><td><span class="code-inline">/api/auth/me</span></td><td>GET</td><td>Bearer Token</td><td>Returns authenticated user profile</td></tr>
+        <tr><td><span class="code-inline">/api/auth/profile</span></td><td>PUT</td><td>Bearer Token</td><td>Updates user profile & Cloudinary avatar</td></tr>
+        <tr><td><span class="code-inline">/api/products</span></td><td>POST</td><td>Admin Token</td><td>Creates new furniture item + Image upload</td></tr>
+        <tr><td><span class="code-inline">/api/cart</span></td><td>GET / POST / DELETE</td><td>Bearer Token</td><td>Manages user shopping cart session</td></tr>
+        <tr><td><span class="code-inline">/api/orders</span></td><td>POST</td><td>Bearer Token</td><td>Creates new order & triggers Stripe session</td></tr>
+        <tr><td><span class="code-inline">/api/admin/settings</span></td><td>GET / PUT</td><td>Admin Token</td><td>Reads/writes store dynamic JSONB settings</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>

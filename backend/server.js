@@ -19,8 +19,22 @@ app.set("trust proxy", 1);
 
 app.use("/api/webhook", bodyParser.raw({ type: "application/json" }));
 
+const allowedOrigins = [
+  'http://localhost:5000',
+  'http://localhost:3000',
+  'http://localhost:5173',
+  process.env.BASE_URL,
+].filter(Boolean);
+
 app.use(cors({
-  origin:  process.env.BASE_URL,
+  origin: (origin, callback) => {
+    // Allow requests with no origin (e.g. mobile apps, curl, Postman)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
 const publicPath = path.resolve(process.cwd(), "public");
@@ -39,12 +53,7 @@ app.use(
     path.resolve("furniture-react/src/shared/styles")
   )
 );
-app.use(
-  "/styles",
-  express.static(
-    path.resolve("furniture-react/src/shared/styles")
-  )
-);
+// duplicate /styles route removed
 const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
@@ -74,26 +83,7 @@ module.exports = upload;
 
 
 
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  const allowedOrigins = ['http://localhost:3000','http://localhost:5173', 'https://yourdomain.com', process.env.BASE_URL];
-
-  if (allowedOrigins.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-  }
-
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Max-Age', '86400');
-
-  // Handle preflight requests
-  if (req.method === 'OPTIONS') {
-    return res.sendStatus(200);
-  }
-
-  next();
-});
+// Manual CORS middleware removed — handled by cors() package above
 
 
 

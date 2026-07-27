@@ -164,13 +164,9 @@ const loadCategories = async () => {
       setLoading(false);
     }
   };
- //{isEditing ? "Edit Product" : "Add Product"}
- //space-y-4
-  //max-w-2xl mx-auto p-6 bg-white rounded shadow
   return (
     <div className="main">
-  <UpBar title={"Add Product"} />
-      
+<UpBar title={isEditing ? "Edit Product" : "Add Product"} />      
     <div className="addProduct">
    
       <h2 className="text-2xl font-bold mb-6">

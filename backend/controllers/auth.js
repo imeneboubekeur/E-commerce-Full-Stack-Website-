@@ -213,7 +213,6 @@ exports.updateProfile = async (req, res) => {
 if (!req.file) {
       return res.status(400).json({ message: "Image is required" });
     }
-    
     const imageUrl = req.file.path;
     const imagePublicId = req.file.filename;
     const result = await pool.query(

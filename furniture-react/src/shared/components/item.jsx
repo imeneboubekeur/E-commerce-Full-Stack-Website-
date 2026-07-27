@@ -228,8 +228,10 @@ export function SingleItem({data}){
          })
        );
      } catch (err) {
-       alert(err.message);
-     }
+  if (err.status=== 401) {
+  navigate("/login")
+  }    
+}
    };
  const handleDeleteProduct = async (productId) => {
    try {
@@ -253,11 +255,11 @@ export function SingleItem({data}){
    }
  
    if (isWishlisted) {
-     await wishlistAPI.removeFromWishlist(data.id);
-     dispatch(removeFromWishlist(data.id));
+     await wishlistAPI.removeFromWishlist(product.id);
+     dispatch(removeFromWishlist(product.id));
    } else {
-     await wishlistAPI.addToWishlist(data.id);
-     dispatch(addToWishlist(data));
+     await wishlistAPI.addToWishlist(product.id);
+     dispatch(addToWishlist(product));
    }
  }; 
 return(

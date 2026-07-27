@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authAPI } from "../../services/api";
 import { updateProfile } from "../../slices/authSlice";
 import { UpBar } from "../dashboard";
+const API_URL = process.env.API_URL;
 
 export function SecuritySettings1() {
   const dispatch = useDispatch();
@@ -62,7 +63,7 @@ const [imagePreview, setImagePreview] = useState(user.image_url || "");
         form.append("image", formData.image);
       }
      const res = await fetch(
-        `${process.env.API_URL || 'http://localhost:5000/api'}/auth/profile`,
+        `${API_URL}/auth/profile`,
         {
           method: "PUT",
           body:form
@@ -108,7 +109,6 @@ const [imagePreview, setImagePreview] = useState(user.image_url || "");
             preferences
           </p>
 
-          {/* PROFILE */}
           <div className="profile">
             <h3>Profile Information</h3>
 
@@ -156,7 +156,6 @@ const [imagePreview, setImagePreview] = useState(user.image_url || "");
             </div>
           </div>
 
-          {/* PASSWORD */}
           <div className="password">
             <h3>Update Password</h3>
 

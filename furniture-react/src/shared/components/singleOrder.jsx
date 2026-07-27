@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 
 const OrderPage = () => {
+     const navigate = useNavigate();
 
     const {
         singleProduct,
@@ -23,7 +24,7 @@ const OrderPage = () => {
     quantity: 1,
   },
 ];
-const makePayment= async()=>{
+/*const makePayment= async()=>{
 const stripe=await loadStripe(window.__STRIPE_KEY__)
 const res = await fetch("/api/create-payment-intent", {
       method: "POST",
@@ -37,7 +38,40 @@ const res = await fetch("/api/create-payment-intent", {
 const data= await res.json();
 
  window.location.href = data.url;
-}
+}*/
+const makePayment = async () => {
+  try {
+    const stripe = await loadStripe(window.__STRIPE_KEY__);
+
+    const res = await fetch("/api/create-payment-intent", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        items,
+        shipping_address: "",
+        amount: total,
+      }),
+    });
+
+    if (res.status === 401) {
+        console.log("401")
+      navigate("/login");
+      return;
+    }
+
+    if (!res.ok) {
+      throw new Error("Failed to create payment");
+    }
+
+    const data = await res.json();
+
+    window.location.href = data.url;
+  } catch (err) {
+    console.error(err);
+  }
+};
     return (
 
         <div className="order-container">

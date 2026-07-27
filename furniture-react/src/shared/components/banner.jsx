@@ -91,12 +91,12 @@ const handleLogout = async () => {
 
                                 <div className="menu-divider"></div>
 
-                                <Link to="/profile">
+                                <Link to="/security">
                                 <span>
     <User  height="0.9rem" width="2.3rem" /> My Profile</span>
                                 </Link>
 
-                                <Link to="/admin/security">
+                                <Link to="/security">
   <span>
     <Settings  height="0.9rem" width="2.3rem" /> Settings</span>                                </Link>
 

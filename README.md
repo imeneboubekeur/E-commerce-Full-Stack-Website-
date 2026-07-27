@@ -1,3 +1,4 @@
+#UI UX Designer @bendali-ibtihal-layal
 # Furniture E-Commerce System
 
 An end-to-end, high-performance furniture e-commerce platform built with React 19, Node.js (Express 5), and PostgreSQL. The application features custom Server-Side Rendering (SSR) for fast initial loads and SEO optimization, paired with dynamic SPA interactivity, secure Stripe Checkout payments, Cloudinary media storage, and a comprehensive Admin Management Dashboard.
